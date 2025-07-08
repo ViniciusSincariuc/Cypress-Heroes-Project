@@ -2,11 +2,15 @@ import UserSucessPage from "../pages/userSucess.js";
 import UserFailPage from "../pages/usersFail.js";
 import SecurityPage from "../pages/security.js";
 import CasesUXPage from "../pages/casesUX.js";
+import UserTestPage from "../pages/userTest.js";
+import UserAdminPage from "../pages/userAdmin.js";
 
 const userFail = new UserFailPage();
 const userSucess = new UserSucessPage();
 const securityPage = new SecurityPage();
 const casesUXPage = new CasesUXPage();
+const userTest = new UserTestPage();
+const userAdmin = new UserAdminPage();
 
 describe('Cypress Heroes Tests', () => {
 
@@ -46,5 +50,27 @@ describe('Cypress Heroes Tests', () => {
     it('Test Mensagem error Clean', () => casesUXPage.clearMensageError());
     it('Test Caracters Occult', () => casesUXPage.caractersOccult());
   });
+
+  describe('Tests User test', () => {
+
+    it('Test Like Hero', () => userTest.checkLikeHero())
+    it('Test Save Hero', () => userTest.checkSaveHero())
+    it('Test New Route UserTest', () => userTest.checkNewRoute())
+    it('Test new hero creat userTest', () => userTest.createNewHeroTest())
+    it('Test Edit Route UserTest', () => userTest.checkEditRoute())
+    it('Test Msg Error Edit hero', () => userTest.msgErrorEditHero())
+    it('Test Logout Button', () => userTest.checkLogoutButton())
+    it('Test Function Logout', () => userTest.checkLogoutFunction())
+
+  })
+
+  describe('Tests User Admin', () => {
+
+    it('Test Check Admin Login', () => userAdmin.functionAdmin())
+    it('Test Logout Button Admin', () => userAdmin.checkLogoutButtonAdmin())
+    it('Test Function Logout Admin', () => userAdmin.checkLogoutFunctionAdmin())
+    it('Test Check Edit Hero Admin', () => userAdmin.checkEditHero())
+    it.only('Test 2 Power hero', () => userAdmin.checkHero2Power())
+  })
 
 });

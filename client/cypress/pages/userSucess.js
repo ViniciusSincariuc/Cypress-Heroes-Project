@@ -21,6 +21,7 @@ class userSucessPage{
         cy.get("[data-cy='email']").type(this.userTest().login)
         cy.get('[data-cy="password"]').type(this.userTest().password)
         cy.get('.text-white').click()
+        cy.wait(1000)
         cy.get("[href='/heroes/new']").should('not.exist')
        
         }
@@ -32,6 +33,7 @@ class userSucessPage{
         cy.get("[data-cy='email']").type(this.userAdmin().login)
         cy.get('[data-cy="password"]').type(this.userAdmin().password)
         cy.get('.text-white').click()
+        cy.wait(1000)
         cy.get("[href='/heroes/new']").should('be.visible')
         
         }

@@ -70,7 +70,13 @@ describe('Cypress Heroes Tests', () => {
     it('Test Logout Button Admin', () => userAdmin.checkLogoutButtonAdmin())
     it('Test Function Logout Admin', () => userAdmin.checkLogoutFunctionAdmin())
     it('Test Check Edit Hero Admin', () => userAdmin.checkEditHero())
-    it.only('Test 2 Power hero', () => userAdmin.checkHero2Power())
+    it('Test 2 Power hero', () => userAdmin.checkHero2Power())
+    it('Test Create New Hero', () => userAdmin.creatNewHero())
+    it('Test Delet Test hero', () => userAdmin.deletTestHero())
+    it('Test Delet hero Edit page', () => userAdmin.deletHeroEditPage())
+    it('Test Create hero equal name', () => userAdmin.creatHeroEqualName())
+    it('Test Create hero and Check Values', () => userAdmin.checkValuesHero())
+    it.only('Test Edit image hero', () => userAdmin.editImageHero())
   })
 
 });

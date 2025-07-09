@@ -1,12 +1,19 @@
 import UserSucessPage from "../pages/userSucess.js";
-const userSucess = new UserSucessPage()
-const numberV = 2
+import 'cypress-file-upload';
+import Chance from 'chance';
 
+const chance = new Chance()
+const userSucess = new UserSucessPage()
+
+const numberV = 2
+const name = chance.name()
 const valores = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 const tPower = Cypress._.sampleSize(valores, 2)
 
 const index = Math.floor(Math.random() * 9) +1;
-const index2 = Math.floor(Math.random() * 9) +1;
+const pV = Math.floor(Math.random() * 99) +1;
+const sV = Math.floor(Math.random() * 99) +1;
+const fV = Math.floor(Math.random() * 99) +1;
 
 class userAdmin{
 
@@ -97,6 +104,153 @@ class userAdmin{
 
         })
     }
+
+    creatNewHero(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type("Mr Zebra")
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('mrzebra.png')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains("[data-cy='hero-card']", "Mr Zebra").should('exist')
+
+    }
+
+    deletTestHero(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+        cy.get("[data-cy='nameInput']").type("TestHeroDelet")
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.get("[data-cy='hero-card']").contains("TestHeroDelet").parents("[data-cy='hero-card']").find("[data-cy='trash']").click()
+        cy.get(".gap-4").contains("Delete Hero?").parents(".gap-4").find(".text-white").click()
+        
+    }
+
+    deletHeroEditPage(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+        cy.get("[data-cy='nameInput']").type("TestHeroDeletEdit")
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.get("[data-cy='hero-card']").contains("TestHeroDeletEdit").parents("[data-cy='hero-card']").find("[data-cy='pencil']").click()
+        cy.get("[type='button']").click()
+        cy.get(".bg-white").contains("TestHeroDeletEdit").parents(".gap-4").find(".text-white").click()
+        cy.get("[alt='Cypress Heroes Logo']").click()
+        cy.contains("[data-cy='hero-card']", "TestHeroDeletEdit").should('not.exist')
+    }
+
+    creatHeroEqualName(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type("TestEqualHero")
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('mrzebra.png')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.wait(1000)
+
+        cy.get(".bg-blue-700.text-white").click()
+        cy.get("[data-cy='nameInput']").type("TestEqualHero")
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('mrzebra.png')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.wait(1000)
+
+        cy.get("[data-cy='hero-card']").then(($cards) => {const matches = $cards.filter((i, el) =>
+        el.innerText.includes("TestEqualHero"));
+        expect(matches.length).to.eq(1); // ou .to.be.lessThan(2), se quiser tolerar 0 ou 1
+        });
+        
+        //.contains("TestEqualHero").should('have.length', 1)
+    }
+
+    checkValuesHero(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+
+        cy.get("[name='price']").invoke("val").then((likeText) => {const price = parseInt(likeText,10)
+        cy.get("[name='fans']").invoke("val").then((likeText) => {const iFans = parseInt(likeText,10) 
+        cy.get("[name='saves']").invoke("val").then((likeText) => {const iSaves = parseInt(likeText,10)
+        cy.get("[name='powers']").find('option:selected').invoke("text").then((power) => { 
+
+        cy.get("[data-cy='avatarFile']").attachFile('mrzebra.png')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains("[data-cy='hero-card']", name).should('exist')
+        cy.get("[data-cy='hero-card']").contains(name).parents("[data-cy='hero-card']").within(() => {
+
+        cy.get("[data-cy='fans']").invoke("text").then((updatedText) => { const vFans = parseInt(updatedText, 10);expect(vFans).to.eq(iFans)            
+        cy.get("[data-cy='saves']").invoke("text").then((updatedText) => { const vSaves = parseInt(updatedText, 10);expect(vSaves).to.eq(iSaves)      
+        cy.get("[data-cy='price']").should('contain', `$${price}`) 
+        cy.get("[data-cy='powers']").should('contain', power.toString())
+                         }) 
+                        })
+                       })
+                      })
+                     })
+                    })
+                   })
+    }
+
+        editImageHero(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('mrzebra.png')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.wait(1000)
+        
+        cy.get("[data-cy='hero-card']").contains(name).parents("[data-cy='hero-card']").find("[data-cy='pencil']").click()
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.wait(1000)
+        //cy.contains("[data-cy='hero-card']", name).should('exist')
+
+    }
+
 
 }
 export default userAdmin

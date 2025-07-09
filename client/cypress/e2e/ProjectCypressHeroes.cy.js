@@ -76,7 +76,7 @@ describe('Cypress Heroes Tests', () => {
     it('Test Delet hero Edit page', () => userAdmin.deletHeroEditPage())
     it('Test Create hero equal name', () => userAdmin.creatHeroEqualName())
     it('Test Create hero and Check Values', () => userAdmin.checkValuesHero())
-    it.only('Test Edit image hero', () => userAdmin.editImageHero())
+    it('Test Edit image hero', () => userAdmin.editImageHero())
   })
 
 });

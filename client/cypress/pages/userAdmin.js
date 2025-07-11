@@ -246,11 +246,131 @@ class userAdmin{
         cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
         cy.get(".bg-blue-700").eq(1).click()
 
-        cy.wait(1000)
-        //cy.contains("[data-cy='hero-card']", name).should('exist')
+    }
+
+    createHeroWhiteFilds(){
+
+        userSucess.loginAdminUser()
+
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains(".text-red-500", 'Name is required').should('be.visible')
+        cy.contains(".text-red-500", 'Price is required').should('be.visible')
+        cy.contains(".text-red-500", 'Fans is required').should('be.visible')
+        cy.contains(".text-red-500", 'Saves is required').should('be.visible')
+        cy.contains(".text-red-500", 'Powers is required').should('be.visible')
 
     }
 
+    createHeroNoName(){
+
+        userSucess.loginAdminUser()
+
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains(".text-red-500", 'Name is required').should('be.visible')
+
+
+    }
+
+    createHeroNoPrice(){
+
+        userSucess.loginAdminUser()
+
+        cy.get(".bg-blue-700.text-white").click()
+        
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains(".text-red-500", 'Price is required').should('be.visible')
+
+
+    }
+
+    createHeroNoFans(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains(".text-red-500", 'Fans is required').should('be.visible')
+
+    }
+
+    createHeroNoSaves(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.contains(".text-red-500", 'Saves is required').should('be.visible')
+
+    }
+
+    createHeroNoPowers(){
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pV)
+        cy.get("[data-cy='fansInput']").type(fV)
+        cy.get("[data-cy='savesInput']").type(sV)
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+       cy.contains(".text-red-500", 'Powers is required').should('be.visible')
+
+    }
+
+    createHeroNegativesValues(){
+
+        const pN = -Math.floor(Math.random() * 100) - 1;
+        const fN = -Math.floor(Math.random() * 100) - 1;
+        const sN = -Math.floor(Math.random() * 100) - 1;
+
+        userSucess.loginAdminUser()
+        cy.get(".bg-blue-700.text-white").click()
+
+        cy.get("[data-cy='nameInput']").type(name)
+        cy.get("[name='price']").type(pN)
+        cy.get("[data-cy='fansInput']").type(fN)
+        cy.get("[data-cy='savesInput']").type(sN)
+        cy.get("[data-cy='powersSelect']").select(index.toString())
+        cy.get("[data-cy='avatarFile']").attachFile('avatar.jpg')
+        cy.get(".bg-blue-700").eq(1).click()
+
+        cy.wait(1000)
+
+        cy.contains("[data-cy='hero-card']", name).should('not.visible')
+
+    }
 
 }
 export default userAdmin

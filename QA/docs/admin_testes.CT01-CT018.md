@@ -1,304 +1,339 @@
-# Casos de Teste - Login
+# Casos de Teste - Funcionalidades Admin
 
-Este documento descreve os casos de teste relacionados à funcionalidade de login do projeto **Cypress Heroes**. Cada caso contém uma descrição clara dos objetivos, pré-condições, passos e resultados esperados.
+**Contexto:** Todos os testes abaixo assumem que o usuário **admin** (`admin@test.com / test123`) já está autenticado no sistema e se encontra na tela de listagem de heróis.
 
 ---
 
-## CT001 - Login com usuário válido
-**Funcionalidade**: Login
+## CT001 - Funcionalidades de admin
+**Funcionalidade**: Permissões de Acesso (Admin)
 
-**Pré-condições**: Ter um usuário comum cadastrado (`test@test.com / test123`)
+**Pré-condições**: Ter um usuário administrador cadastrado (admin@test.com / test123)
 
 **Passos**:
 1. Acessar a página de login
-2. Preencher o campo email com `test@test.com`
+2. Preencher o campo email com  `admin@test.com`
 3. Preencher o campo senha com `test123`
 4. Clicar no botão de login
 
-**Resultado Esperado**: O usuário é autenticado com sucesso e redirecionado à tela de heróis.
+**Resultado Esperado**: O sistema autentica o usuário com sucesso e exibe funcionalidades exclusivas de administrador (criar, editar e excluir heróis).
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT002 - Login com usuário administrador válido
-**Funcionalidade**: Login
+## CT002 - Vereficar funcionalidade do botão Edit
+**Funcionalidade**: Edição de Herói
 
-**Pré-condições**: Ter um usuário admin cadastrado (`admin@test.com / test123`)
+**Pré-condições**: Estar autenticado como usuário administrador, ter pelo menos um herói listado na tela 
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com `admin@test.com`
-3. Preencher o campo senha com `test123`
-4. Clicar no botão de login
+1. Clicar no botão "Edit" de um herói da lista
 
-**Resultado Esperado**: O usuário é autenticado com sucesso e redirecionado à tela de heróis com permissões de administrador.
+**Resultado Esperado**: O sistema deve redirecionar para a tela de edição do herói selecionado.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT003 - Email correto e senha incorreta
-**Funcionalidade**: Login
+## CT003 - Verificar atualização dos dados após edição do herói
+**Funcionalidade**: Edição de Herói
 
-**Pré-condições**: Usuário `test@test.com` cadastrado
+**Pré-condições**: Estar na tela de listagem de heróis e ter um herói previamente criado.
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com `test@test.com`
-3. Preencher o campo senha com valor incorreto
-4. Clicar no botão de login
+1. Clicar no botão "Edit" de um herói da lista
+2. Alterar um ou mais campos do formulário (ex: nome, preço, fãs, etc.)
+3. Clicar no botão "Submit"
 
-**Resultado Esperado**: Exibição de mensagem de erro informando falha na autenticação.
+**Resultado Esperado**: Após o envio do formulário, o sistema deve retornar à tela de listagem e exibir os dados atualizados do herói editado.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT004 - Email incorreto e senha correta
-**Funcionalidade**: Login
+## CT004 - Atualização de poder do herói admin
+**Funcionalidade**:  Edição de Herói
 
-**Pré-condições**: Nenhuma
+**Pré-condições**: Estar na tela de listagem de heróis e ter um herói previamente criado.
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com valor inexistente
-3. Preencher o campo senha com `test123`
-4. Clicar no botão de login
+1. Clicar no botão Editar de um herói existente
+2. Atualizar o campo Poder com um novo valor
+3. Clicar no botão Submit
 
-**Resultado Esperado**: Exibição de mensagem de erro informando falha na autenticação.
+**Resultado Esperado**: O valor do poder atualizado é exibido corretamente na página principal, refletindo a alteração realizada.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT005 - Email e senha incorretos
-**Funcionalidade**: Login
+## CT005 - Impedir múltiplos poderes simultâneos
+**Funcionalidade**:  Criação/Edição de Herói
 
-**Pré-condições**: Nenhuma
+**Pré-condições**: Estar na tela de criação ou edição de herói
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com valor incorreto
-3. Preencher o campo senha com valor incorreto
-4. Clicar no botão de login
+1. Preencher os campos obrigatórios do herói
+2. Selecionar múltiplos poderes simultaneamente (se possível via teclado ou manipulação)
+3. Clicar no botão Submit
 
-**Resultado Esperado**: Mensagem de erro deve ser exibida.
+**Resultado Esperado**:  O sistema deve impedir a seleção de múltiplos poderes simultaneamente, permitindo apenas um por herói.
 
-**Status**: Passou / Automatizado
+**Resultado Obtido**: Foi possível selecionar dois ou mais poderes ao mesmo tempo segurando a tecla Ctrl, e o sistema permitiu o envio do formulário normalmente.
+
+**Status**: Falhou / Automatizado
 
 ---
 
-## CT006 - Campos de login em branco
-**Funcionalidade**: Validação de campos obrigatórios
+## CT006 - Redirecionamento ao clicar no botão "Create New Hero"
+**Funcionalidade**: Navegação
 
-**Pré-condições**: Nenhuma
+**Pré-condições**: star logado como administrador e na tela de listagem de heróis
 
 **Passos**:
-1. Acessar a página de login
-2. Deixar os campos de email e senha em branco
-3. Clicar no botão de login
+1. Localizar o botão Create New Hero
+2. Clicar no botão
 
-**Resultado Esperado**: Mensagem de erro informando que os campos são obrigatórios deve ser exibida.
+**Resultado Esperado**: O usuário deve ser redirecionado para a rota /new, onde é possível criar um novo herói.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT007 - Apenas email preenchido
-**Funcionalidade**: Validação de campos obrigatórios
+## CT007 - Criar um novo herói
+**Funcionalidade**: Criação de Herói
 
-**Pré-condições**: Nenhuma
+**Pré-condições**: Estar logado como administrador e na rota /new
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher somente o campo de email
-3. Deixar o campo de senha em branco
-4. Clicar no botão de login
+1. Localizar o botão Create New Hero e clicar
+2. Preencher os campos obrigatórios(Nome, Preço, fãs, like, powers)
+3. Clicar em Submit
 
-**Resultado Esperado**: Mensagem de erro informando campo obrigatório para senha.
+**Resultado Esperado**: O herói deve ser criado com sucesso e exibido na listagem principal.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT008 - Apenas senha preenchida
-**Funcionalidade**: Validação de campos obrigatórios
+## CT008 - Adicionar imagem ao criar novo herói
+**Funcionalidade**: Criação de Herói
 
-**Pré-condições**: Nenhuma
+**Pré-condições**: Estar logado como administrador e na rota /new
 
 **Passos**:
-1. Acessar a página de login
-2. Deixar o campo de email em branco
-3. Preencher apenas o campo de senha
-4. Clicar no botão de login
+1. Localizar o botão Create New Hero e clicar
+2. Preencher os campos obrigatórios
+3. Clicar no campo de upload de imagem
+4. Selecionar uma imagem do computador
+5. Clicar em Submit
 
-**Resultado Esperado**: Mensagem de erro informando campo obrigatório para email.
+**Resultado Esperado**: A imagem deve ser carregada corretamente no card de pré-visualização e o herói deve ser criado com a imagem exibida na listagem principal.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT009 - Login com usuário administrador com espaços extras
-**Funcionalidade**: Login
+## CT009 - Excluir herói pela página principal
+**Funcionalidade**: Exclusão de Herói
 
-**Pré-condições**: Ter um usuário administrador cadastrado (`admin@test.com / test123`)
+**Pré-condições**: Estar logado como administrador e na tela de listagem de heróis com pelo menos um herói criado
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com ` admin@test.com `
-3. Preencher o campo senha com ` test123 `
-4. Clicar no botão de login
+1. Localizar o herói desejado na listagem
+2. Clicar no botão Delete correspondente ao herói
+3. Confirmar a exclusão (se aplicável)
 
-**Resultado Esperado**: O sistema deve exibir uma mensagem de erro, impedindo o login por conta dos espaços extras.
+**Resultado Esperado**: O herói é removido da lista e não aparece mais na tela principal.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT010 - Login com usuário administrador e senha com caracteres inválidos
-**Funcionalidade**: Validação de segurança
+## CT010 - Excluir herói pela tela de edição 
+**Funcionalidade**: Exclusão de herói
 
-**Pré-condições**: Ter um usuário administrador cadastrado (`admin@test.com`)
+**Pré-condições**: Estar logado como admin e Estar na tela de edição de um herói previamente criado
 
 **Passos**:
-1. Acessar a página de login
-2. Preencher o campo email com `admin@test.com`
-3. Preencher o campo senha com `admin123!@#`
-4. Clicar no botão de login
+1. Acessar a tela de edição de um herói existente
+2. Clicar no botão Delete
+3. Confirmar a exclusão (se houver confirmação)
+4. Ser redirecionado para a listagem de heróis
 
-**Resultado Esperado**: O sistema deve exibir mensagem de erro informando senha inválida.
+**Resultado Esperado**: O herói excluído não deve mais aparecer na lista principal.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT011 - Usuário administrador edita herói com sucesso
-**Funcionalidade**: Edição de Heróis
+## CT011 -  Verificar se consigo criar dois heróis com o mesmo nome
+**Funcionalidade**: Criação de herói
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Pré-condições**: Estar na tela de criação de herói, estar logado como admin e ter um herói previamente criado com um nome específico. 
 
 **Passos**:
-1. Navegar até a página de heróis
-2. Clicar em editar um herói existente
-3. Modificar um ou mais campos do herói
-4. Salvar alterações
+1. Acessar a tela de criação de herói
+2. Preencher os campos com os mesmos dados (nome) de um herói já existente
+3. Clicar no botão Submit
 
-**Resultado Esperado**: Herói é atualizado com sucesso e refletido na listagem.
+**Resultado Esperado**: O sistema deve impedir a criação e exibir uma mensagem de erro informando que o nome já está em uso
 
-**Status**: Passou / Automatizado
+**Resultado Obtido**: O sistema permitiu a criação de dois heróis com o mesmo nome
+
+**Status**: Falhou / Automatizado
 
 ---
 
-## CT012 - Administrador deleta herói pela listagem
-**Funcionalidade**: Exclusão de Heróis
+## CT012 - Verificar se após a criação os valores e informações estão corretos
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na tela de criação de herói
 
 **Passos**:
-1. Navegar até a página de heróis
-2. Clicar no botão de deletar em um herói
-3. Confirmar a exclusão
+1. Localizar o botão Create New Hero e clicar
+2. Preencher todos os campos com valores válidos e distintos (nome, poderes, preço, fãs, saves, imagem)
+3. Clicar no botão Submit
+4. Ser redirecionado para a listagem de heróis
+5. Localizar o herói recém criado
 
-**Resultado Esperado**: Herói é removido da listagem.
+
+**Resultado Esperado**: As informações exibidas do herói (nome, poderes, preço, fãs, saves e imagem) devem ser exatamente as mesmas que foram preenchidas durante a criação
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT013 - Criar herói com todos os campos preenchidos corretamente
-**Funcionalidade**: Cadastro de Heróis
+## CT013 - Verificar se a foto do herói foi atualizada após edição pela página de edição
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Funcionalidade**: Edição de herói
+
+**Pré-condições**: Estar logado como adm, estar na tela de listagem de heróise ter pelo menos um herói cadastrado com imagem definida
 
 **Passos**:
-1. Acessar tela de criação de herói
-2. Preencher todos os campos obrigatórios
-3. Clicar em salvar
+1. Localizar um herói na listagem e clicar no botão de edição
+2. Na tela de edição, alterar o campo da imagem
+3. Clicar no botão Submit
+4. Ser redirecionado para a listagem de heróis e procurar o mesmo
 
-**Resultado Esperado**: Novo herói é criado e aparece na listagem.
+**Resultado Esperado**:A imagem do herói deve ser exibida atualizada na listagem após a submissão da edição.
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT014 - Criar herói com campos em branco
-**Funcionalidade**: Cadastro de Heróis
+## CT014 - Verificar se aparece uma mensagem de erro ao criar um herói sem colocar nome
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
 
 **Passos**:
-1. Acessar tela de criação de herói
-2. Deixar campos obrigatórios em branco
-3. Clicar em salvar
+1. Preencher todos os campos obrigatórios, exceto o campo 'nome'
+2. Clicar no botão Submit
 
-**Resultado Esperado**: Mensagens de erro são exibidas e herói não é criado.
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que o campo 'nome' é obrigatório
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT015 - Criar herói com valores negativos
-**Funcionalidade**: Cadastro de Heróis
+## CT015 - Verificar se aparece uma mensagem de erro ao criar um herói sem colocar o preço
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**:  Estar logado como admin e estar na página de criação de novo herói (/new)
 
 **Passos**:
-1. Acessar tela de criação de herói
-2. Informar valores negativos para preço, fãs ou salvos
-3. Clicar em salvar
+1. Preencher todos os campos obrigatórios, exceto o campo 'preço'
+2. Clicar no botão Submit
 
-**Resultado Esperado**: Sistema impede a criação e exibe mensagens de erro.
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que o campo 'preço' é obrigatório
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT016 - Criar herói com nome duplicado
-**Funcionalidade**: Cadastro de Heróis
+## CT016 - Verificar se aparece uma mensagem de erro ao criar um herói sem preencher o campo fans
 
-**Pré-condições**: Estar logado como `admin@test.com` e ter um herói com nome "HeroX" cadastrado
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
 
 **Passos**:
-1. Acessar tela de criação de herói
-2. Preencher os campos com nome "HeroX"
-3. Clicar em salvar
+1. Preencher todos os campos obrigatórios, exceto o campo 'fans'
+2. Clicar no botão Submit
 
-**Resultado Esperado**: Sistema deve exibir erro informando que o nome já existe.
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que o campo 'fans' é obrigatório
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT017 - Adicionar múltiplos poderes ao herói
-**Funcionalidade**: Cadastro de Heróis
+## CT017 - Verificar se aparece uma mensagem de erro ao criar um herói sem preencher o campo saves
 
-**Pré-condições**: Estar logado como `admin@test.com`
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
 
 **Passos**:
-1. Acessar tela de criação de herói
-2. Selecionar dois ou mais poderes
-3. Preencher os demais campos e salvar
+1. Preencher todos os campos obrigatórios, exceto o campo 'saves'
+2. Clicar no botão Submit
 
-**Resultado Esperado**: Herói é criado com os poderes selecionados corretamente.
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que o campo 'saves' é obrigatório
 
 **Status**: Passou / Automatizado
 
 ---
 
-## CT018 - Editar imagem de um herói
-**Funcionalidade**: Edição de Heróis
 
-**Pré-condições**: Estar logado como `admin@test.com`
+## CT018 - Verificar se aparece uma mensagem de erro ao criar um herói sem selecionar poderes
+
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
 
 **Passos**:
-1. Acessar tela de edição de herói
-2. Alterar o link da imagem
-3. Salvar alterações
+1. Preencher todos os campos obrigatórios, mas não selecionar nenhum poder
+2. Clicar no botão Submit
 
-**Resultado Esperado**: Imagem do herói é atualizada com sucesso.
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que um poder deve ser selecionado
 
 **Status**: Passou / Automatizado
 
 ---
 
+## CT019 - Verificar se aparece mensagem de erro ao tentar criar um herói com todos os campos em branco
+
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
+
+**Passos**:
+1. Clicar diretamente em Submit, sem preencher nenhum campo
+
+**Resultado Esperado**: Deve ser exibida uma mensagem de erro informando que todos os campos são obrigatórios
+
+**Status**: Passou / Automatizado
+
+---
+
+## CT020 - Verificar se dá erro ao tentar criar um herói com números negativos
+
+**Funcionalidade**: Criação de herói
+
+**Pré-condições**: Estar logado como admin e estar na página de criação de novo herói (/new)
+
+**Passos**:
+1. Preencher todos os campos obrigatórios com valores válidos, exceto os campos numéricos, que devem receber valores negativos (ex: -100 para preço, -50 para fãs, -10 para saves)
+2. Selecionar um poder
+3. Clicar em Submit
+
+**Resultado Esperado**: O sistema deve bloquear a criação do herói e exibir mensagens de erro para campos com valores negativos
+
+**Resultado Obtido**: O herói foi criado mesmo com valores negativos, sem exibição de erro
+
+**Status**: Falhou / Automatizado
+
+---

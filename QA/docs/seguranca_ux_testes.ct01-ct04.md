@@ -4,7 +4,7 @@ Este documento abrange os casos de teste relacionados à segurança de rotas e �
 
 ---
 
-## CT016 - Acesso direto à rota de edição sem autenticação
+## CT01 - Acesso direto à rota de edição sem autenticação
 **Funcionalidade**: Segurança de rotas
 
 **Pré-condições**: Nenhum usuário autenticado
@@ -20,7 +20,7 @@ Este documento abrange os casos de teste relacionados à segurança de rotas e �
 
 ---
 
-## CT017 - Acesso direto à rota de criação sem autenticação
+## CT02 - Acesso direto à rota de criação sem autenticação
 **Funcionalidade**: Segurança de rotas
 
 **Pré-condições**: Nenhum usuário autenticado
@@ -36,7 +36,7 @@ Este documento abrange os casos de teste relacionados à segurança de rotas e �
 
 ---
 
-## CT018 - mensagem de erro clara ao digitar dados incorretos
+## CT03 - mensagem de erro clara ao digitar dados incorretos
 **Funcionalidade**: UX - Experiência do usuário
 
 **Pré-condições**: Tentativa de login com dados inválidos
@@ -53,7 +53,7 @@ Este documento abrange os casos de teste relacionados à segurança de rotas e �
 
 ---
 
-## CT019 - Caracteres da senha devem ficar ocultos
+## CT04 - Caracteres da senha devem ficar ocultos
 **Funcionalidade**: UX - Segurança visual
 
 **Pré-condições**: Nenhuma
@@ -66,3 +66,38 @@ Este documento abrange os casos de teste relacionados à segurança de rotas e �
 
 **Status**: Passou / Automatizado
 
+---
+
+## CT005 - Botão Logout admin
+**Funcionalidade**: Logout
+
+**Pré-condições**: Ter um usuário valido logado (comum ou admin)
+
+**Passos**:
+1. Acessar a página de login
+2. Preencher o campo email com um usuário válido
+3. Preencher o campo senha 
+4. Clicar no botão de login
+5. Verificar se o botão de logout aparece na interface
+
+**Resultado Esperado**: Após a autenticação, o botão de logout deve estar visível no canto superior da interface.
+
+**Status**: Passou / Automatizado
+
+---
+
+## CT006 - Funcionamento Logout admin
+**Funcionalidade**: Logout
+
+**Pré-condições**: Ter um usuário valido logado (comum ou admin)
+
+**Passos**:
+1. Estar com usuário logado (comum ou admin)
+2. Verificar se o botão de LOGOUT esta visivel
+3. Clicar no botão de Logout
+
+**Resultado Esperado**: Após o click no botão LOGOUT o usuário é redirecionado para pagina de login.
+
+**Status**: Passou / Automatizado
+
+---

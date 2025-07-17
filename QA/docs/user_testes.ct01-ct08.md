@@ -76,7 +76,7 @@ Cada cenário foi executado manualmente e automatizado para garantir a confiabil
 **Passos**:
 1. Acessar diretamente a rota `/heroes/{id}/edit`
 
-**Resultado Esperado**: O sistema bloqueia a navegação ou exibe aviso de acesso restrito.
+**Resultado Esperado**: O usuário é redirecionado recebe uma mensagem de acesso não autorizado e é redirecionado a pagina inicial.
 
 **Resultado Obtido**: Acesso a pagina `/heroes/{id}/edit`(Edição de heroes)
 

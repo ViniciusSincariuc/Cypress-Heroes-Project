@@ -67,7 +67,7 @@
 
 ---
 
-## CT005 - Impedir múltiplos poderes simultâneos
+## CT005 - Criação de heroi com múltiplos poderes simultaneamente
 **Funcionalidade**:  Criação/Edição de Herói
 
 **Pré-condições**: Estar na tela de criação ou edição de herói

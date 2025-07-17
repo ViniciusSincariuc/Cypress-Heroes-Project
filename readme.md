@@ -107,7 +107,7 @@ npm run dev
 4. Execute os testes E2E:
 
 ```bash
-npm run test:e2e:ci
+npx cypress run
 ```
 
 > Obs: Os testes automatizados foram estruturados com base em **casos de teste manuais previamente criados e documentados no Jira**, simulando um ambiente de QA real.

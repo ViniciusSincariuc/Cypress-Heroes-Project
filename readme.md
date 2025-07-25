@@ -98,13 +98,19 @@ cd cypress-heroes/client
 npm install
 ```
 
-3. Em outro terminal, suba o backend:
+3. Resete o servidor(para garantir que não havera erros)
+
+  ```bash
+  npm run resetdb
+  ```
+
+4. Suba o backend:
 
 ```bash
 npm run dev
 ```
 
-4. Execute os testes E2E:
+5. Em outro terminal, Execute os testes E2E:
 
 ```bash
 npx cypress run
